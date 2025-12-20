@@ -1,5 +1,9 @@
-function toggleMenu() {
-  document.getElementById("navLinks").classList.toggle("show");
+  function toggleMenu() {
+  const nav = document.getElementById("navLinks");
+  const btn = document.querySelector(".hamburger");
+
+  nav.classList.toggle("show");
+  btn.classList.toggle("active");
 }
 
  // ===== SKILL BAR ANIMATION =====
@@ -19,4 +23,5 @@ const skillObserver = new IntersectionObserver(
 );
 
 skillBars.forEach(bar => skillObserver.observe(bar));
+
 
