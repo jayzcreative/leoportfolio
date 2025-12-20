@@ -98,6 +98,18 @@ header {
   color: #00cccc;
 }
 
+.hamburger .fa-xmark {
+  display: none;
+}
+
+ 
+.hamburger.active .fa-bars {
+  display: none;
+}
+
+.hamburger.active .fa-xmark {
+  display: block;
+}
 .hero {
   margin-top: 120px;
 }
@@ -526,4 +538,5 @@ footer p span {
 .footer-copy span {
   color: #ff7200;
   font-weight: 600;
+
 }
