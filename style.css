@@ -245,12 +245,12 @@ header {
 .tech-skills,
 .professional-skills {
   align-self: start;
+ margin-top: 80px;   
 }
 
 /*Prof skills*/
  .professional-skills {
     max-width: 400px;
-    margin: 0;
     text-align: center;
   }
 
@@ -689,6 +689,7 @@ footer p span {
   font-weight: 600;
 
 }
+
 
 
 
