@@ -215,6 +215,42 @@ header {
   transition: width 1.5s ease;
 }
 
+.skill-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 17px;
+  margin-bottom: 8px;
+  color: #fff;
+}
+ 
+.skill-title i {
+  font-size: 20px;
+  padding: 6px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px);
+}
+
+ 
+.html {
+  color: #e34f26;
+}
+
+.css {
+  color: #1572b6;
+}
+
+.js {
+  color: #f7df1e;
+}
+
+.uiux {
+  color: #00cccc;
+}
+
+ 
 /*Service section*/
 
 .projects-grid,
@@ -566,4 +602,5 @@ footer p span {
   font-weight: 600;
 
 }
+
 
