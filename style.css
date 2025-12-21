@@ -184,26 +184,20 @@ header {
  /* ===== SKILLS ===== */
  .skill-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap: 10px;
-  width: 100px;
+  grid-template-columns: 1fr 1fr;  
+  gap: 40px;
 }
-.skill-grid h4{
+
+.skill-grid h4 {
   color: #ff7200;
   text-decoration: underline;
   font-style: italic;
-  position: relative;
-  bottom: 25px;
-  left:25px;
-  opacity: 0.75;
   font-size: 22px;
-   
-}
-.skills {
-  max-width: 500px;
-  margin: 40px auto;
+  margin-bottom: 20px;
+  opacity: 0.8;
 }
 
+ 
 .skill {
   margin-bottom: 25px;
 }
@@ -213,7 +207,7 @@ header {
   margin-bottom: 6px;
   font-weight: 600;
 }
- 
+
 .bar {
   height: 10px;
   background: #333;
@@ -222,11 +216,10 @@ header {
   opacity: 0.6;
 }
 
- 
 .bar-fill {
   height: 100%;
   width: 0;                     
-  background: var(--accent);
+  background: aqua;
   border-radius: 5px;
   transform-origin: left;
   transition: width 1.5s ease;
@@ -241,7 +234,7 @@ header {
   margin-bottom: 8px;
   color: #fff;
 }
- 
+
 .skill-title i {
   font-size: 20px;
   padding: 6px;
@@ -249,23 +242,97 @@ header {
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(6px);
 }
+.tech-skills,
+.professional-skills {
+  align-self: start;
+}
 
+/*Prof skills*/
+ .professional-skills {
+    max-width: 400px;
+    margin: 0;
+    text-align: center;
+  }
+
+  .professional-skills h4 {
+    color: #ff7200;
+    font-style: italic;
+    text-decoration: underline;
+    margin-bottom: 30px;
+  }
+
+  .prof-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);  
+    gap: 30px;
+  }
+
+  .prof-skill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .circle-wrap {
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+
+  .progress-ring {
+    transform: rotate(-90deg);
+  }
+
+  .bg-ring {
+    fill: none;
+    stroke: rgba(0, 255, 255, 0.08);  
+    stroke-width: 6;
+  }
+
+  .progress-ring__circle {
+    fill: none;
+    stroke: rgba(0, 255, 255, 0.85);  
+    stroke-width: 6;
+    stroke-linecap: round;
+    stroke-dasharray: 201;
+    stroke-dashoffset: 201;
+    transition: stroke-dashoffset 1.4s ease;
+  }
+
+  .percent-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(0, 255, 255, 0.9);
+  }
+
+  .skill-name {
+    font-size: 14px;
+    opacity: 0.9;
+  }
  
 .html {
-  color:aqua;
+  color: aqua;
 }
 
 .css {
-  color:aqua;
+  color: aqua;
 }
 
 .js {
-  color:aqua;
+  color: aqua;
 }
 
 .uiux {
-  color:aqua;
+  color: aqua;
 }
+
+ 
 
  
 /*Service section*/
@@ -318,6 +385,9 @@ header {
 }
 
 /*Project section*/
+#projects {
+  margin-top: 80px;   
+}
 
 .project-card a{
    color: #5dafff;
@@ -619,6 +689,7 @@ footer p span {
   font-weight: 600;
 
 }
+
 
 
 
