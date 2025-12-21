@@ -155,6 +155,32 @@ header {
    
 }
 
+ .abt-btn-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.abt-btn {
+  background: aqua;
+  color: #003333;
+  padding: 10px 22px;
+  border-radius: 25px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease, color 0.3s ease;
+  display: inline-block;
+ 
+}
+
+.abt-btn:hover {
+  background: #00cccc;
+  color: #ff7200;
+  transform: scale(1.05);
+ 
+}
+
+
+
  /* ===== SKILLS ===== */
 .skills {
   max-width: 500px;
@@ -540,3 +566,4 @@ footer p span {
   font-weight: 600;
 
 }
+
