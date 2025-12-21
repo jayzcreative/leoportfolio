@@ -235,19 +235,19 @@ header {
 
  
 .html {
-  color: #e34f26;
+  color:aqua;
 }
 
 .css {
-  color: #1572b6;
+  color:aqua;
 }
 
 .js {
-  color: #f7df1e;
+  color:aqua;
 }
 
 .uiux {
-  color: #00cccc;
+  color:aqua;
 }
 
  
@@ -602,5 +602,6 @@ footer p span {
   font-weight: 600;
 
 }
+
 
 
