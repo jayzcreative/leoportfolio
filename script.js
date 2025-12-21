@@ -25,3 +25,22 @@ const skillObserver = new IntersectionObserver(
 skillBars.forEach(bar => skillObserver.observe(bar));
 
 
+//Hi leo appear as typying
+document.addEventListener("DOMContentLoaded", function() {
+  const text = "Hi, I'm Leo";
+  const typingElement = document.getElementById("typing");
+  let index = 0;
+
+  function type() {
+    if (index < text.length) {
+      typingElement.innerHTML += text.charAt(index);
+      index++;
+      setTimeout(type, 150); // typing speed in ms
+    }
+  }
+
+  type(); // start typing on page load
+
+  
+});
+
