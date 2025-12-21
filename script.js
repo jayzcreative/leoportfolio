@@ -6,23 +6,25 @@
   btn.classList.toggle("active");
 }
 
+
  // ===== SKILL BAR ANIMATION =====
-const skillBars = document.querySelectorAll(".bar-fill");
+ 
+document.querySelectorAll('.bar-fill').forEach(bar => {
+  bar.style.width = bar.getAttribute('data-level');
+});
+//Circle
+ document.querySelectorAll('.prof-skill').forEach(skill => {
+    const percent = skill.dataset.percentage;
+    const circle = skill.querySelector('.progress-ring__circle');
+    const radius = circle.r.baseVal.value;
+    const circumference = 2 * Math.PI * radius;
 
-const skillObserver = new IntersectionObserver(
-  entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const bar = entry.target;
-        bar.style.width = bar.dataset.level;
-        skillObserver.unobserve(bar); // animate once
-      }
-    });
-  },
-  { threshold: 0.5 }
-);
+    circle.style.strokeDasharray = circumference;
+    circle.style.strokeDashoffset =
+      circumference - (percent / 100) * circumference;
+  });
 
-skillBars.forEach(bar => skillObserver.observe(bar));
+
 
 
 //Hi leo appear as typying
@@ -39,8 +41,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  type(); // start typing on page load
+  type();  
 
   
 });
+
 
