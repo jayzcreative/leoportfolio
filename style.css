@@ -33,12 +33,31 @@ header {
   max-width: 120px;
 }
 
+ 
+/*new*/
 .nav {
+    position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: background 0.3s ease, box-shadow 0.3s ease, backdrop-filter 0.3s ease;
+  
+}
+.nav-inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 0;
 }
+.nav.scrolled {
+  background: rgba(8, 8, 8, 0.85);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+
+/*new*/
 
 .nav-links {
   display: flex;
@@ -689,6 +708,7 @@ footer p span {
   font-weight: 600;
 
 }
+
 
 
 
