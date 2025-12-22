@@ -251,7 +251,7 @@ header {
     color: #ff7200;
     font-style: italic;
     text-decoration: underline;
-    margin-bottom: 30px;
+    margin-bottom: 18px;
   }
 
   .prof-grid {
@@ -264,7 +264,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 0;
   }
 
   .circle-wrap {
@@ -682,6 +682,7 @@ footer p span {
   font-weight: 600;
 
 }
+
 
 
 
