@@ -1,0 +1,35 @@
+ @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .glass-card {
+        @apply bg-white/5 border border-white/10 backdrop-blur-md transition-all duration-300;
+    }
+
+    .hamburger-line {
+        @apply absolute left-0 block w-6 h-0.5 bg-white transition-all duration-300 ease-in-out;
+    }
+}
+
+/* Hamburger animations */
+.open .top-0 { transform: translateY(8px) rotate(45deg); }
+.open .top-2 { opacity: 0; }
+.open .top-4 { transform: translateY(-8px) rotate(-45deg); }
+
+/* Bento Image Hover */
+.group:hover i {
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}
+#typing::after {
+    content: "|";
+    animation: blink 0.7s infinite;
+    color: #a855f7; /* Your purple color */
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}

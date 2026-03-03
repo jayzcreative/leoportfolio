@@ -1,0 +1,383 @@
+ <!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leo Zuze | AI & Front-End Developer</title>
+
+    <meta name="description" content="Leo Zuze is a skilled Front-End Developer specializing in responsive design and modern UI/UX based in Pune, India.">
+    <meta name="keywords" content="Leo Zuze, Front-End Developer, Web Developer, HTML, CSS, JavaScript, AI Student">
+    <meta name="author" content="Leo Zuze">
+    
+    <meta property="og:title" content="Leo Zuze | AI & Front-End Developer">
+    <meta property="og:image" content="images/logo001.png">
+
+    <link href="./src/output.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="images/logo001.png">
+</head>
+<body class="bg-[#050505] text-white font-['Inter'] overflow-x-hidden">
+
+    <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-purple-600/10 blur-[120px] -z-10 animate-pulse"></div>
+    <div class="fixed bottom-[10%] right-[-5%] w-[400px] h-[400px] rounded-full bg-blue-600/10 blur-[100px] -z-10"></div>
+
+    <nav class="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] max-w-5xl z-50 transition-all duration-500">
+    <div class="glass-card flex justify-between items-center px-6 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
+        <img src="images/logo.webp" class="h-8 w-auto" alt="Logo">
+        
+        <ul class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+            <li><a href="#home" class="hover:text-purple-400 transition-colors duration-300">Home</a></li>
+            <li><a href="#about" class="hover:text-purple-400 transition-colors duration-300">About</a></li>
+            <li><a href="#projects" class="hover:text-purple-400 transition-colors duration-300">Projects</a></li>
+            <li><a href="#services" class="hover:text-purple-400 transition-colors duration-300">Services</a></li>
+            <li><a href="#contact" class="hover:text-purple-400 transition-colors duration-300">Contact</a></li>
+        </ul>
+
+        <div class="flex items-center gap-4">
+            <a href="https://wa.me/919764506058?text=Hello! I'm interested in starting a project with you." 
+               class="hidden sm:block bg-purple-600 text-white px-6 py-2.5 rounded-full text-xs font-bold transition-all duration-300 hover:bg-purple-500 hover:scale-105 hover:shadow-[0_0_25px_rgba(168,85,247,0.5)] active:scale-95">
+                Get Started <i class="fa-solid fa-arrow-right ml-1"></i>
+            </a>
+            
+            <button id="menu-btn" class="md:hidden text-white focus:outline-none w-8 h-8 relative">
+                <span class="hamburger-line top-0"></span>
+                <span class="hamburger-line top-2"></span>
+                <span class="hamburger-line top-4"></span>
+            </button>
+        </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden flex-col mt-4 glass-card rounded-3xl p-8 border border-white/10 bg-black/95 md:hidden">
+        <ul class="flex flex-col gap-6 text-center text-lg font-medium text-gray-300">
+            <li><a href="#home" class="mobile-link hover:text-purple-400 transition-colors">Home</a></li>
+            <li><a href="#about" class="mobile-link hover:text-purple-400 transition-colors">About</a></li>
+            <li><a href="#projects" class="mobile-link hover:text-purple-400 transition-colors">Projects</a></li>
+            <li><a href="#services" class="mobile-link hover:text-purple-400 transition-colors">Services</a></li>
+            <li><a href="#contact" class="mobile-link hover:text-purple-400 transition-colors">Contact</a></li>
+            <hr class="border-white/10 my-2">
+            <li>
+                <a href="https://wa.me/919764506058" class="bg-purple-600 text-white py-3 rounded-2xl block hover:bg-purple-500 transition-all">
+                    Get Started
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+ <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center px-4 pt-28">
+    <div class="relative mb-6">
+        <div class="absolute inset-0 bg-purple-500/20 blur-2xl rounded-full"></div>
+        <div class="relative">
+            <img src="/images/profile.webp" alt="Leo Zuze" 
+                 class="w-24 h-24 md:w-28 md:h-28 rounded-full border-2 border-white/10 p-1 object-cover bg-black/50 backdrop-blur-sm grayscale hover:grayscale-0 transition-all duration-500">
+            <div class="absolute bottom-1 right-1 w-5 h-5 bg-[#050505] rounded-full flex items-center justify-center border border-white/10">
+                <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-4">
+        <span class="text-white text-xl md:text-2xl font-['Space_Grotesk'] tracking-tight">
+            Hi, I'm <span class="text-purple-500 font-bold">Leo Zuze</span> 
+        </span>
+    </div>
+
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-400 text-[10px] font-bold tracking-widest mb-8 uppercase">
+        <i class="fa-solid fa-brain"></i>
+          AI Student & Front-End Developer
+    </div>
+
+    <h1 class="font-['Space_Grotesk'] text-5xl md:text-8xl font-bold tracking-tighter leading-[0.9] mb-6">
+        <span class="text-white">Complex Ideas,</span><br>
+        <span class="bg-clip-text text-transparent bg-gradient-to-b from-white to-purple-500" id="typing"></span>
+    </h1>
+    
+    <p class="mt-4 text-gray-400 max-w-2xl text-lg leading-relaxed">
+        Currently pursuing my B.Tech at <span class="text-white">Vishwakarma University</span>. I bridge the gap between advanced AI logic and high-performance web experiences.
+    </p>
+
+    <div class="mt-10 flex flex-wrap gap-4 justify-center">
+        <a href="#projects" class="bg-white text-black px-8 py-4 rounded-full font-bold hover:bg-purple-600 hover:text-white transition-all duration-300 hover:scale-105 shadow-[0_10px_20px_rgba(255,255,255,0.1)]">
+            Explore My Work
+        </a>
+        <a href="https://wa.me/919764506058" 
+           class="border border-white/10 bg-white/5 px-8 py-4 rounded-full font-bold hover:bg-purple-500/20 hover:border-purple-500/50 transition-all hover:scale-105 flex items-center gap-2 text-white">
+            <i class="fa-brands fa-whatsapp text-purple-400"></i>
+            Chat with me
+        </a>
+    </div>
+</section>
+ <section id="about" class="max-w-6xl mx-auto px-4 py-24">
+    <div class="text-center mb-12">
+        <h2 class="text-purple-400 font-bold tracking-widest uppercase text-[10px] mb-2">Capabilities</h2>
+        <h3 class="font-['Space_Grotesk'] text-4xl font-bold mb-4 text-white">My Technical Stack</h3>
+        <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed opacity-80">
+            Fusing intelligent logic with modern web architecture to build the next generation of digital tools.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6">
+        <div class="p-10 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-sm hover:border-purple-500/30 transition-colors">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                <div>
+                    <h3 class="text-purple-500 font-bold uppercase text-xs tracking-widest mb-1 italic">How I Think</h3>
+                    <h2 class="font-['Space_Grotesk'] text-3xl font-bold text-white tracking-tight">Smart Logic. Clean Interfaces.</h2>
+                </div>
+                <div class="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-full border border-white/10">
+                    <i class="fa-solid fa-location-dot text-purple-500 text-xs"></i>
+                    <span class="text-xs font-bold uppercase tracking-wider text-purple-400">Pune, India</span>
+                </div>
+            </div>
+            
+            <p class="text-gray-400 leading-relaxed text-lg">
+                Currently based in <span class="text-purple-400 font-bold">Pune</span>, I focus on the intersection of <span class="text-purple-400 font-bold">Artificial Intelligence</span> and modern deployment. I leverage <span class="text-purple-400 font-bold">Python</span> to engineer intelligent back-end logic and build high-performance front-end interfaces using <span class="text-purple-400 font-bold">HTML, JS, CSS, and Tailwind CSS</span>. My goal is to create seamless tools that solve complex problems through automated, intelligent logic.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-6 gap-4 mt-6">
+            <div class="glass-card p-6 rounded-2xl flex flex-col items-center group hover:bg-white/10 transition border border-white/5">
+                <i class="fa-brands fa-python text-blue-400 text-3xl mb-3"></i>
+                <span class="text-[10px] font-bold uppercase tracking-tighter">Python</span>
+            </div>
+            <div class="glass-card p-6 rounded-2xl flex flex-col items-center group hover:bg-white/10 transition border border-white/5">
+                <i class="fa-brands fa-js text-yellow-400 text-3xl mb-3"></i>
+                <span class="text-[10px] font-bold uppercase tracking-tighter">JavaScript</span>
+            </div>
+            <div class="glass-card p-6 rounded-2xl flex flex-col items-center group hover:bg-white/10 transition border border-white/5">
+                <i class="fa-brands fa-html5 text-orange-500 text-3xl mb-3"></i>
+                <span class="text-[10px] font-bold uppercase tracking-tighter">HTML5</span>
+            </div>
+            <div class="glass-card p-6 rounded-2xl flex flex-col items-center group hover:bg-white/10 transition border border-white/5">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" class="h-8 mb-3" alt="Tailwind">
+                <span class="text-[10px] font-bold uppercase tracking-tighter">Tailwind</span>
+            </div>
+            <div class="glass-card p-6 rounded-2xl flex flex-col items-center group hover:bg-white/10 transition border border-white/5">
+                <i class="fa-brands fa-css3-alt text-blue-500 text-3xl mb-3"></i>
+                <span class="text-[10px] font-bold uppercase tracking-tighter">CSS3</span>
+            </div>
+            <div class="glass-card p-6 rounded-2xl flex flex-col items-center group hover:bg-white/10 transition border border-white/5">
+                <i class="fa-brands fa-github text-white text-3xl mb-3"></i>
+                <span class="text-[10px] font-bold uppercase tracking-tighter">GitHub</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section id="projects" class="max-w-6xl mx-auto px-4 py-24 border-t border-white/5">
+        <div class="flex justify-between items-end mb-12">
+            <div>
+                <h2 class="text-purple-400 font-bold tracking-widest uppercase text-xs mb-2">Portfolio</h2>
+                <h3 class="font-['Space_Grotesk'] text-4xl font-bold text-white">Featured Work</h3>
+            </div>
+            <a href="https://github.com/jayzcreative" target="_blank" class="text-gray-500 hover:text-white text-sm transition hidden md:block">
+                View all on GitHub <i class="fa-brands fa-github ml-1"></i>
+            </a>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <article class="glass-card rounded-3xl overflow-hidden group border-purple-500/20 lg:col-span-2">
+                <div class="aspect-video overflow-hidden relative">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent z-10 opacity-60"></div>
+                    <img src="images/threat.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Threat Sense Cybersecurity">
+                    <div class="absolute bottom-6 left-6 z-20">
+                        <span class="bg-purple-600 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">Cybersecurity & AI</span>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-2xl font-bold mb-3 group-hover:text-purple-400 transition">Threat Sense</h3>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                        A high-performance cybersecurity visualization platform. Built for real-time threat detection awareness with a focus on futuristic UI/UX and dark-mode optimization.
+                    </p>
+                    <a href="https://threat-sense.vercel.app/" target="_blank" class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 px-5 py-2 rounded-full text-sm font-bold transition">
+                        Live Demo <i class="fa-solid fa-arrow-up-right-from-square text-xs text-purple-500"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="glass-card rounded-3xl overflow-hidden group hover:border-purple-500/30 transition-all">
+                <div class="aspect-video overflow-hidden">
+                    <img src="images/portfolio.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Portfolio">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-bold mb-2">Personal Portfolio</h3>
+                    <p class="text-gray-400 text-xs mb-4">SEO-optimized personal brand site.</p>
+                    <a href="https://jayzcreative.github.io/leoportfolio/" target="_blank" class="text-purple-400 font-bold text-xs flex items-center gap-2">
+                        View Project <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+
+            <article class="glass-card rounded-3xl overflow-hidden group hover:border-purple-500/30 transition-all">
+                <div class="aspect-video overflow-hidden">
+                    <img src="images/hero.webp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Quick Bite">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-lg font-bold mb-2">Quick Bite Landing Page</h3>
+                    <p class="text-gray-400 text-xs mb-4">Fast-loading restaurant experience.</p>
+                    <a href="https://quickbiterestaurent.netlify.app/" target="_blank" class="text-purple-400 font-bold text-xs flex items-center gap-2">
+                        View Project <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </article>
+        </div>
+    </section>
+ <section id="services" class="max-w-6xl mx-auto px-4 py-24">
+    <div class="text-center mb-16">
+        <h2 class="text-purple-400 font-bold tracking-widest uppercase text-[10px] mb-2">Services</h2>
+        <h3 class="font-['Space_Grotesk'] text-4xl font-bold mb-4 text-white">What I Do</h3>
+        <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed opacity-80">
+            I combine <span class="text-purple-400 font-bold">Artificial Intelligence</span> with modern web engineering to build secure, high-performance digital solutions.
+        </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="glass-card p-8 rounded-3xl hover:bg-white/5 transition border border-white/5 group hover:border-purple-500/30">
+            <i class="fa-solid fa-shield-halved text-purple-500 text-3xl mb-6 block group-hover:scale-110 transition-transform"></i>
+            <h4 class="text-lg font-bold mb-2 text-white">AI Security</h4>
+            <p class="text-gray-400 text-sm leading-relaxed">
+                Training <span class="text-purple-400 font-bold">Machine Learning</span> models to detect fraud, identify anomalies, and secure data patterns.
+            </p>
+        </div>
+
+        <div class="glass-card p-8 rounded-3xl hover:bg-white/5 transition border border-white/5 group hover:border-purple-500/30">
+            <i class="fa-solid fa-code text-purple-500 text-3xl mb-6 block group-hover:scale-110 transition-transform"></i>
+            <h4 class="text-lg font-bold mb-2 text-white">Modern Web</h4>
+            <p class="text-gray-400 text-sm leading-relaxed">
+                Crafting fast, responsive interfaces using <span class="text-purple-400 font-bold">HTML, CSS, and Tailwind CSS</span>.
+            </p>
+        </div>
+
+        <div class="glass-card p-8 rounded-3xl hover:bg-white/5 transition border border-white/5 group hover:border-purple-500/30">
+            <i class="fa-solid fa-gears text-purple-500 text-3xl mb-6 block group-hover:scale-110 transition-transform"></i>
+            <h4 class="text-lg font-bold mb-2 text-white">Smart Logic</h4>
+            <p class="text-gray-400 text-sm leading-relaxed">
+                Using <span class="text-purple-400 font-bold">Python</span> and JavaScript to bridge the gap between back-end intelligence and user experience.
+            </p>
+        </div>
+
+        <div class="glass-card p-8 rounded-3xl hover:bg-white/5 transition border border-white/5 group hover:border-purple-500/30">
+            <i class="fa-solid fa-gauge-high text-purple-500 text-3xl mb-6 block group-hover:scale-110 transition-transform"></i>
+            <h4 class="text-lg font-bold mb-2 text-white">Optimization</h4>
+            <p class="text-gray-400 text-sm leading-relaxed">
+                Ensuring <span class="text-purple-400 font-bold">SEO-friendly</span> code and lightning-fast load times for a better user experience.
+            </p>
+        </div>
+    </div>
+    <section id="contact" class="max-w-6xl mx-auto px-4 py-24">
+    <div class="text-center mb-16">
+        <h3 class="text-purple-400 font-bold tracking-widest uppercase text-[10px] mb-2">Connect Today</h3>
+        <h2 class="font-['Space_Grotesk'] text-4xl md:text-5xl font-bold text-white mb-6">
+            Let’s push the limits and <br><span class="text-purple-500">Build greatness.</span>
+        </h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">Want to elevate your project? Let’s team up and turn your ideas into something exceptional.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 mb-6">
+        <div class="glass-card p-8 rounded-3xl border border-white/5 hover:border-purple-500/30 transition-all text-center group">
+            <i class="fa-solid fa-envelope text-purple-500 text-3xl mb-4"></i>
+            <h3 class="text-xl font-bold text-white mb-2">Email</h3>
+            <p class="text-gray-400 text-sm mb-6">Get in touch to explore cutting-edge ideas.</p>
+            <a href="mailto:leonoelzuze@gmail.com" class="text-purple-400 font-bold hover:text-white transition">Email Me</a>
+        </div>
+
+        <div class="glass-card p-8 rounded-3xl border border-white/5 hover:border-purple-500/30 transition-all text-center group">
+            <i class="fa-solid fa-phone text-purple-500 text-3xl mb-4"></i>
+            <h3 class="text-xl font-bold text-white mb-2">Phone</h3>
+            <p class="text-gray-400 text-sm mb-6">Talk directly about your vision.</p>
+            <a href="tel:+919764506058" class="text-purple-400 font-bold hover:text-white transition">Call Me</a>
+        </div>
+
+        <div class="glass-card p-8 rounded-3xl border border-white/5 hover:border-purple-500/30 transition-all text-center group">
+            <i class="fa-brands fa-whatsapp text-purple-500 text-3xl mb-4"></i>
+            <h3 class="text-xl font-bold text-white mb-2">WhatsApp</h3>
+            <p class="text-gray-400 text-sm mb-6">Receive real-time support and updates.</p>
+            <a href="https://wa.me/919764506058?text=Hello!%20I'm%20reaching%20out%20from%20your%20portfolio..." target="_blank" class="text-purple-400 font-bold hover:text-white transition">Chat Now</a>
+        </div>
+    </div>
+
+    <div class="glass-card p-8 rounded-3xl border border-white/5 hover:border-purple-500/30 transition-all text-center">
+        <h3 class="text-xl font-bold text-white mb-2">Follow My Journey</h3>
+        <p class="text-gray-400 text-sm mb-6">Join me and witness the next AI innovations.</p>
+        <div class="flex justify-center gap-8">
+            <a href="https://www.facebook.com/profile.php?id=61583679727663" target="_blank" class="text-gray-400 hover:text-purple-500 text-2xl transition"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/jayzthe_plug/" target="_blank" class="text-gray-400 hover:text-purple-500 text-2xl transition"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/leo-zuze-772631397/" target="_blank" class="text-gray-400 hover:text-purple-500 text-2xl transition"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://github.com/jayzcreative" target="_blank" class="text-gray-400 hover:text-purple-500 text-2xl transition"><i class="fa-brands fa-github"></i></a>
+        </div>
+    </div>
+</section>
+</section>
+    <footer class="mt-24 border-t border-white/10 bg-[#050505] pt-20 pb-10">
+    <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+
+        <div class="footer-box">
+            <img src="images/logo.webp" loading="lazy" alt="logo" class="h-8 w-auto mb-6">
+            <p class="text-gray-400 text-sm leading-relaxed">
+                Engineering <span class="text-white">Intelligent Logic</span> and high-performance web experiences. Currently based in Pune, specializing in AI-driven security and modern development.
+            </p>
+        </div>
+
+        <div class="footer-box">
+            <h3 class="text-white font-bold mb-6 tracking-tight text-lg">Get In Touch</h3>
+            <ul class="space-y-4 text-sm text-gray-400">
+                <li class="flex items-center gap-3">
+                    <i class="fa-solid fa-location-dot text-purple-500 w-4"></i> Pune, India
+                </li>
+                <li class="flex items-center gap-3">
+                    <i class="fa-solid fa-phone text-purple-500 w-4"></i>
+                    <a href="tel:+919764506058" class="hover:text-purple-400 transition">+91 97645 06058</a>
+                </li>
+                <li class="flex items-center gap-3">
+                    <i class="fa-solid fa-envelope text-purple-500 w-4"></i>
+                    <a href="mailto:leonoelzuze@gmail.com" class="hover:text-purple-400 transition">leonoelzuze@gmail.com</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer-box">
+            <h3 class="text-white font-bold mb-6 tracking-tight text-lg">Services</h3>
+            <ul class="space-y-3 text-sm text-gray-400">
+                <li class="hover:text-purple-400 transition cursor-default flex items-center gap-2">
+                    <span class="w-1 h-1 bg-purple-500 rounded-full"></span> AI Security
+                </li>
+                <li class="hover:text-purple-400 transition cursor-default flex items-center gap-2">
+                    <span class="w-1 h-1 bg-purple-500 rounded-full"></span> Modern Web
+                </li>
+                <li class="hover:text-purple-400 transition cursor-default flex items-center gap-2">
+                    <span class="w-1 h-1 bg-purple-500 rounded-full"></span> Smart Logic
+                </li>
+                <li class="hover:text-purple-400 transition cursor-default flex items-center gap-2">
+                    <span class="w-1 h-1 bg-purple-500 rounded-full"></span> Optimization
+                </li>
+            </ul>
+        </div>
+
+        <div class="footer-box">
+            <h3 class="text-white font-bold mb-6 tracking-tight text-lg">Quick Links</h3>
+            <ul class="space-y-3 text-sm text-gray-400">
+                <li><a href="#home" class="hover:text-purple-400 transition">Home</a></li>
+                <li><a href="#about" class="hover:text-purple-400 transition">About Me</a></li>
+                <li><a href="#projects" class="hover:text-purple-400 transition">Projects</a></li>
+                <li><a href="#services" class="hover:text-purple-400 transition">Services</a></li>
+                <li><a href="#contact" class="hover:text-purple-400 transition text-purple-400">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-4 mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div class="flex gap-6">
+            <a href="https://github.com/jayzcreative" target="_blank" class="text-gray-400 hover:text-purple-500 text-xl transition-all hover:-translate-y-1"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/leo-zuze-772631397/" target="_blank" class="text-gray-400 hover:text-purple-500 text-xl transition-all hover:-translate-y-1"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://www.instagram.com/jayzthe_plug/" target="_blank" class="text-gray-400 hover:text-purple-500 text-xl transition-all hover:-translate-y-1"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://wa.me/919764506058" target="_blank" class="text-gray-400 hover:text-purple-500 text-xl transition-all hover:-translate-y-1"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+        
+        <p class="text-gray-500 text-[10px] tracking-[0.2em] uppercase">
+            © 2026 <span class="text-white font-bold">Leo Zuze</span>. All rights reserved.
+        </p>
+    </div>
+</footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
