@@ -92,6 +92,7 @@ export const projects = [
       "Git",
       "GitHub",
       "Vercel",
+      "Render"
     ],
     highlights: ["Python", "FastAPI", "React", "REST APIs","shadcn/ui"],
   },
