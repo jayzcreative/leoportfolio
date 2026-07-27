@@ -11,7 +11,10 @@ import {
   SiTailwindcss,
   SiShadcnui,
   SiFramer,
+  SiVite,
+  SiI18Next,
   SiExpress,
+  SiFastapi,
   SiMongodb,
   SiJsonwebtokens,
   SiJson,
@@ -24,7 +27,7 @@ import {
   SiFirebase,
   SiCloudinary,
 } from "react-icons/si";
-import { Brain, BarChart3, LineChart, Webhook, Code2, Rocket, Globe } from "lucide-react";
+import { Brain, BarChart3, LineChart, Webhook, Code2, Rocket, Globe, Search } from "lucide-react";
 
 // Everything about a skill lives here once — name, icon, and the detail
 // copy used on the full Skills page. The homepage preview and the
@@ -121,6 +124,16 @@ export const skillCategories = [
         icon: SiFramer,
         detail: "Page transitions, hover states, and scroll-triggered animation.",
       },
+      {
+        name: "Vite",
+        icon: SiVite,
+        detail: "Fast dev server and build tooling for modern React apps.",
+      },
+      {
+        name: "i18next",
+        icon: SiI18Next,
+        detail: "Multi-language support for apps serving international users.",
+      },
     ],
   },
   {
@@ -131,6 +144,11 @@ export const skillCategories = [
         name: "Express",
         icon: SiExpress,
         detail: "Lightweight Node.js framework for building REST APIs.",
+      },
+      {
+        name: "FastAPI",
+        icon: SiFastapi,
+        detail: "High-performance Python framework for building APIs quickly.",
       },
       {
         name: "MongoDB",
@@ -152,6 +170,7 @@ export const skillCategories = [
         icon: SiJson,
         detail: "The data format everything above ends up speaking.",
       },
+   
     ],
   },
   {
