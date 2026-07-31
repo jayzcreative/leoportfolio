@@ -38,3 +38,5 @@ node_modules/.vite
 
 # OS files
 Thumbs.db
+.vercel
+.env*
