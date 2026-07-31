@@ -21,6 +21,7 @@ const QUICK_LINKS = [
   { label: "Home", to: "/" },
   { label: "About", to: "/about" },
   { label: "Projects", to: "/projects" },
+  { label: "Services", to: "/services" },
   { label: "Skills", to: "/skills" },
   { label: "Contact", to: "/contact" },
 ];
