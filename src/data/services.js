@@ -56,7 +56,7 @@ export const services = [
       "Delivered as a report or a live dashboard",
     ],
     price: "From $170",
-    priceNote: "Final price depends on scope — happy to negotiate",
+    priceNote: "Final price depends on scope happy to negotiate",
     cta: "Start a Project",
   },
   {
