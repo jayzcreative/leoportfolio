@@ -25,25 +25,25 @@ export default function Services() {
   return (
     <div className="pt-32 pb-24 bg-bg min-h-screen overflow-x-hidden">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.6 }}
-          variants={headerFade}
-          className="mb-16 text-center"
-        >
-          <p className="font-mono text-xs uppercase tracking-widest text-accent mb-2">
-            How I Can Help
-          </p>
-          <h1 className="font-heading text-4xl md:text-5xl font-bold text-text">
-            Services
-          </h1>
-          <p className="text-muted mt-4 max-w-xl mx-auto">
-            Straightforward web development, delivered with care plus the
-            AI and data work I'm actively building toward. Every project
-            starts with a conversation, so you only pay for what you need.
-          </p>
-        </motion.div>
+    <motion.div
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: false, amount: 0.6 }}
+    variants={headerFade}
+    className="max-w-2xl mb-16"
+    >
+    <p className="font-mono text-xs uppercase tracking-widest text-accent mb-2">
+        How I Can Help
+    </p>
+    <h1 className="font-heading text-3xl md:text-4xl font-bold text-text mb-4">
+        Services
+    </h1>
+    <p className="text-muted text-sm md:text-base leading-relaxed">
+        Straightforward web development, delivered with care plus the
+        AI and data work I'm actively building toward. Every project
+        starts with a conversation, so you only pay for what you need.
+    </p>
+    </motion.div>
 
         <div className="flex flex-col gap-12">
           {services.map((service, i) => {
