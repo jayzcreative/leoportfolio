@@ -34,11 +34,10 @@ export default function ProjectCard({ project, variants, autoOpen = false }) {
     setLightboxOpen(true);
   };
 
-  // Arrived here via a deep link (e.g. from a homepage dashboard card) —
-  // scroll this card into view, then open its gallery shortly after so
-  // the scroll finishes before the lightbox appears.
+  // Only dashboards deep-link and auto-open a lightbox — live websites
+  // should just be visited directly, so this is a no-op for them.
   useEffect(() => {
-    if (!autoOpen) return;
+    if (!autoOpen || !isDashboard) return;
 
     cardRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
     const timer = setTimeout(() => setLightboxOpen(true), 500);
@@ -66,6 +65,29 @@ export default function ProjectCard({ project, variants, autoOpen = false }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lightboxOpen]);
 
+  const imageContent = (
+    <div className="relative aspect-video overflow-hidden bg-bg">
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={imgIndex}
+          src={images[imgIndex]}
+          alt={`${project.title} screenshot ${imgIndex + 1}`}
+          loading="lazy"
+          decoding="async"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+        />
+      </AnimatePresence>
+      <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none" />
+      <span className="absolute top-4 left-4 text-[10px] font-mono uppercase tracking-widest px-3 py-1.5 rounded-full bg-bg/80 backdrop-blur border border-border text-muted group-hover:text-accent group-hover:border-accent transition-colors">
+        {project.subCategory || project.category}
+      </span>
+    </div>
+  );
+
   return (
     <>
       <motion.div
@@ -84,35 +106,29 @@ export default function ProjectCard({ project, variants, autoOpen = false }) {
 
         <div className="relative z-10 bg-surface border border-border rounded-3xl overflow-hidden hover:border-accent transition-colors">
           <div className="relative">
-            <button
-              type="button"
-              onClick={openLightbox}
-              className="block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-              aria-label={`Open ${project.title} image ${imgIndex + 1} of ${images.length}`}
-            >
-              <div className="relative aspect-video overflow-hidden bg-bg">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={imgIndex}
-                    src={images[imgIndex]}
-                    alt={`${project.title} screenshot ${imgIndex + 1}`}
-                    loading="lazy"
-                    decoding="async"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </AnimatePresence>
-                <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity pointer-events-none" />
-                <span className="absolute top-4 left-4 text-[10px] font-mono uppercase tracking-widest px-3 py-1.5 rounded-full bg-bg/80 backdrop-blur border border-border text-muted group-hover:text-accent group-hover:border-accent transition-colors">
-                  {project.subCategory || project.category}
-                </span>
-              </div>
-            </button>
+            {isDashboard ? (
+              <button
+                type="button"
+                onClick={openLightbox}
+                className="block w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                aria-label={`Open ${project.title} image ${imgIndex + 1} of ${images.length}`}
+              >
+                {imageContent}
+              </button>
+            ) : (
+              <a
+                href={project.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+              >
+                {imageContent}
+              </a>
+            )}
 
-            {hasMultiple && (
+            {/* Slider controls only ever apply to dashboards — websites
+                have a single screenshot and no lightbox to page through */}
+            {isDashboard && hasMultiple && (
               <>
                 <button
                   type="button"
@@ -159,12 +175,21 @@ export default function ProjectCard({ project, variants, autoOpen = false }) {
           <div className="p-6 pb-4">
             <div className="flex items-start justify-between gap-3">
               <h3 className="font-heading text-xl font-semibold text-text">{project.title}</h3>
-              <button type="button" onClick={openLightbox} aria-label={visitLabel}>
-                <ArrowUpRight
-                  size={20}
-                  className="shrink-0 text-muted group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
-                />
-              </button>
+              {isDashboard ? (
+                <button type="button" onClick={openLightbox} aria-label={visitLabel}>
+                  <ArrowUpRight
+                    size={20}
+                    className="shrink-0 text-muted group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
+                  />
+                </button>
+              ) : (
+                <a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={visitLabel}>
+                  <ArrowUpRight
+                    size={20}
+                    className="shrink-0 text-muted group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
+                  />
+                </a>
+              )}
             </div>
             <p className="mt-1 text-sm text-accent font-medium">{project.tagline}</p>
             <p className="mt-3 text-sm text-muted leading-relaxed">{project.description}</p>
@@ -216,92 +241,94 @@ export default function ProjectCard({ project, variants, autoOpen = false }) {
         </div>
       </motion.div>
 
-      {/* Lightbox — fixed overlay, independent of card layout/animation */}
-      <AnimatePresence>
-        {lightboxOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-[100] bg-bg/95 backdrop-blur-sm flex items-center justify-center p-4 md:p-10"
-            onClick={() => setLightboxOpen(false)}
-          >
-            <button
-              type="button"
+      {/* Lightbox — dashboards only */}
+      {isDashboard && (
+        <AnimatePresence>
+          {lightboxOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-[100] bg-bg/95 backdrop-blur-sm flex items-center justify-center p-4 md:p-10"
               onClick={() => setLightboxOpen(false)}
-              aria-label="Close"
-              className="absolute top-5 right-5 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-surface border border-border text-text hover:border-accent hover:text-accent transition-colors"
             >
-              <X size={20} />
-            </button>
+              <button
+                type="button"
+                onClick={() => setLightboxOpen(false)}
+                aria-label="Close"
+                className="absolute top-5 right-5 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-surface border border-border text-text hover:border-accent hover:text-accent transition-colors"
+              >
+                <X size={20} />
+              </button>
 
-            {hasMultiple && (
-              <span className="absolute top-6 left-6 font-mono text-xs text-muted">
-                {imgIndex + 1} / {images.length}
-              </span>
-            )}
+              {hasMultiple && (
+                <span className="absolute top-6 left-6 font-mono text-xs text-muted">
+                  {imgIndex + 1} / {images.length}
+                </span>
+              )}
 
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={imgIndex}
-                src={images[imgIndex]}
-                alt={`${project.title} screenshot ${imgIndex + 1}`}
-                initial={{ opacity: 0, scale: 0.97 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.97 }}
-                transition={{ duration: 0.2 }}
-                onClick={(e) => e.stopPropagation()}
-                className="max-w-full max-h-[85vh] object-contain rounded-xl border border-border"
-              />
-            </AnimatePresence>
-
-            {hasMultiple && (
-              <>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    prevImage();
-                  }}
-                  aria-label="Previous image"
-                  className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-surface border border-border text-text hover:border-accent hover:text-accent transition-colors"
-                >
-                  <ChevronLeft size={20} />
-                </button>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    nextImage();
-                  }}
-                  aria-label="Next image"
-                  className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-surface border border-border text-text hover:border-accent hover:text-accent transition-colors"
-                >
-                  <ChevronRight size={20} />
-                </button>
-
-                <div
-                  className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2"
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={imgIndex}
+                  src={images[imgIndex]}
+                  alt={`${project.title} screenshot ${imgIndex + 1}`}
+                  initial={{ opacity: 0, scale: 0.97 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.97 }}
+                  transition={{ duration: 0.2 }}
                   onClick={(e) => e.stopPropagation()}
-                >
-                  {images.map((_, i) => (
-                    <button
-                      key={i}
-                      type="button"
-                      onClick={() => setImgIndex(i)}
-                      aria-label={`Go to image ${i + 1}`}
-                      className={`w-2 h-2 rounded-full transition-colors ${
-                        i === imgIndex ? "bg-accent" : "bg-surface border border-border"
-                      }`}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+                  className="max-w-full max-h-[85vh] object-contain rounded-xl border border-border"
+                />
+              </AnimatePresence>
+
+              {hasMultiple && (
+                <>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      prevImage();
+                    }}
+                    aria-label="Previous image"
+                    className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-surface border border-border text-text hover:border-accent hover:text-accent transition-colors"
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      nextImage();
+                    }}
+                    aria-label="Next image"
+                    className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full bg-surface border border-border text-text hover:border-accent hover:text-accent transition-colors"
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+
+                  <div
+                    className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {images.map((_, i) => (
+                      <button
+                        key={i}
+                        type="button"
+                        onClick={() => setImgIndex(i)}
+                        aria-label={`Go to image ${i + 1}`}
+                        className={`w-2 h-2 rounded-full transition-colors ${
+                          i === imgIndex ? "bg-accent" : "bg-surface border border-border"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
     </>
   );
 }
