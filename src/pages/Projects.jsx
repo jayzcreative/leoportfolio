@@ -1,8 +1,10 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, ChevronDown } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 import { projects } from "../data/projects";
-import { skillCategories, techIcons } from "../data/skills";
+import { skillCategories } from "../data/skills";
+import { slugify } from "../lib/slugify";
+import ProjectCard from "../components/projects/ProjectCard";
 
 const categories = ["All", ...new Set(projects.map((p) => p.category))];
 const categoryOrder = categories.filter((c) => c !== "All");
@@ -11,11 +13,8 @@ export default function Projects() {
   const shouldReduceMotion = useReducedMotion();
   const [activeCategory, setActiveCategory] = useState("All");
   const [activeTech, setActiveTech] = useState("All");
-  const [expanded, setExpanded] = useState({});
-
-  const toggleExpanded = (title) => {
-    setExpanded((prev) => ({ ...prev, [title]: !prev[title] }));
-  };
+  const [searchParams] = useSearchParams();
+  const openSlug = searchParams.get("open");
 
   const filtered = useMemo(() => {
     return projects.filter((p) => {
@@ -25,9 +24,6 @@ export default function Projects() {
     });
   }, [activeCategory, activeTech]);
 
-  // Group the filtered results by category so each section can carry its
-  // own title, in a stable order (Websites before Dashboards) regardless
-  // of which filters are active.
   const groupedFiltered = useMemo(() => {
     return categoryOrder
       .map((cat) => ({ label: cat, items: filtered.filter((p) => p.category === cat) }))
@@ -64,9 +60,6 @@ export default function Projects() {
 
   const scrollRowClass =
     "flex gap-2 overflow-x-auto snap-x snap-mandatory pb-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden";
-
-  const tagClass =
-    "inline-flex items-center gap-1.5 text-[11px] font-mono text-muted bg-bg border border-border rounded-full px-2.5 py-1 mt-3";
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-20 md:py-28 overflow-x-hidden">
@@ -172,117 +165,14 @@ export default function Projects() {
 
             <motion.div layout className="grid md:grid-cols-2 gap-10">
               <AnimatePresence mode="popLayout">
-                {group.items.map((project) => {
-                  const isExpanded = expanded[project.title];
-                  const hiddenTech = project.tech.filter(
-                    (t) => !project.highlights.includes(t)
-                  );
-
-                  return (
-                    <motion.div
-                      key={project.title}
-                      layout
-                      variants={card}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                      className="group relative"
-                    >
-                      <div
-                        className={`absolute -inset-3 bg-gradient-to-br from-accent/15 via-surface to-accent-2/10 rounded-[2.5rem] border border-border ${project.rotate} transition-transform duration-300 group-hover:rotate-0`}
-                      />
-
-                      <div className="relative z-10 bg-surface border border-border rounded-3xl overflow-hidden hover:border-accent transition-colors">
-                        <a
-                          href={project.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-                        >
-                          <div className="relative aspect-video overflow-hidden bg-bg">
-                            <img
-                              src={project.image}
-                              alt={project.title}
-                              loading="lazy"
-                              decoding="async"
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                            <span className="absolute top-4 left-4 text-[10px] font-mono uppercase tracking-widest px-3 py-1.5 rounded-full bg-bg/80 backdrop-blur border border-border text-muted group-hover:text-accent group-hover:border-accent transition-colors">
-                              {project.subCategory || project.category}
-                            </span>
-                          </div>
-
-                          <div className="p-6 pb-4">
-                            <div className="flex items-start justify-between gap-3">
-                              <h3 className="font-heading text-xl font-semibold text-text">
-                                {project.title}
-                              </h3>
-                              <ArrowUpRight
-                                size={20}
-                                className="shrink-0 text-muted group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
-                              />
-                            </div>
-                            <p className="mt-1 text-sm text-accent font-medium">
-                              {project.tagline}
-                            </p>
-                            <p className="mt-3 text-sm text-muted leading-relaxed">
-                              {project.description}
-                            </p>
-                          </div>
-                        </a>
-
-                        {/* Tech stack tags — highlights only, expandable */}
-                        <div className="px-6 pb-6 pt-2 border-t border-border/60 mt-2">
-                          <div className="flex flex-wrap gap-2">
-                            {project.highlights.map((tech) => {
-                              const Icon = techIcons[tech];
-                              return (
-                                <span key={tech} className={tagClass}>
-                                  {Icon && <Icon size={12} className="text-accent" />}
-                                  {tech}
-                                </span>
-                              );
-                            })}
-
-                            <AnimatePresence>
-                              {isExpanded &&
-                                hiddenTech.map((tech) => {
-                                  const Icon = techIcons[tech];
-                                  return (
-                                    <motion.span
-                                      key={tech}
-                                      initial={{ opacity: 0, scale: 0.9 }}
-                                      animate={{ opacity: 1, scale: 1 }}
-                                      exit={{ opacity: 0, scale: 0.9 }}
-                                      transition={{ duration: 0.15 }}
-                                      className={tagClass}
-                                    >
-                                      {Icon && <Icon size={12} className="text-accent" />}
-                                      {tech}
-                                    </motion.span>
-                                  );
-                                })}
-                            </AnimatePresence>
-                          </div>
-
-                          {hiddenTech.length > 0 && (
-                            <button
-                              onClick={() => toggleExpanded(project.title)}
-                              className="mt-3 inline-flex items-center gap-1 text-[11px] font-mono text-muted hover:text-accent transition-colors"
-                            >
-                              <ChevronDown
-                                size={12}
-                                className={`transition-transform ${isExpanded ? "rotate-180" : ""}`}
-                              />
-                              {isExpanded ? "Show less" : `+${hiddenTech.length} more`}
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
+                {group.items.map((project) => (
+                  <ProjectCard
+                    key={project.title}
+                    project={project}
+                    variants={card}
+                    autoOpen={openSlug === slugify(project.title)}
+                  />
+                ))}
               </AnimatePresence>
             </motion.div>
           </div>

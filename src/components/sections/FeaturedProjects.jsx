@@ -2,11 +2,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { projects } from "../../data/projects";
+import { slugify } from "../../lib/slugify";
 
-// Homepage only ever shows projects flagged featured: true in
-// data/projects.js — add more there and mark the ones you want teased
-// here, the rest still show up on the full /projects page. Grouped by
-// category so each section (Websites, Dashboards) gets its own heading.
 const featuredWebsites = projects.filter((p) => p.featured && p.category === "Websites");
 const featuredDashboards = projects.filter((p) => p.featured && p.category === "Dashboards");
 
@@ -37,9 +34,7 @@ export default function FeaturedProjects() {
 
   const container = {
     hidden: {},
-    visible: {
-      transition: { staggerChildren: 0.2, delayChildren: 0.15 },
-    },
+    visible: { transition: { staggerChildren: 0.2, delayChildren: 0.15 } },
   };
 
   const item = {
@@ -47,11 +42,7 @@ export default function FeaturedProjects() {
       opacity: 0,
       x: shouldReduceMotion ? 0 : i % 2 === 0 ? -64 : 64,
     }),
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } },
   };
 
   return (
@@ -106,25 +97,11 @@ export default function FeaturedProjects() {
               variants={container}
               className="grid md:grid-cols-2 gap-10"
             >
-              {group.items.map((project, i) => (
-                <motion.div
-                  key={project.title}
-                  custom={i}
-                  variants={item}
-                  className="group relative"
-                >
-                  <div
-                    className={`absolute -inset-3 bg-gradient-to-br from-accent/15 via-surface to-accent-2/10 rounded-[2.5rem] border border-border ${project.rotate} transition-transform duration-300 group-hover:rotate-0`}
-                  />
+              {group.items.map((project, i) => {
+                const isDashboard = project.category === "Dashboards";
 
-                  <motion.a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={shouldReduceMotion ? {} : { y: -6 }}
-                    transition={{ duration: 0.25, ease: "easeOut" }}
-                    className="relative z-10 block bg-surface border border-border rounded-3xl overflow-hidden hover:border-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-                  >
+                const cardInner = (
+                  <>
                     <div className="relative aspect-video overflow-hidden bg-bg">
                       <img
                         src={project.image}
@@ -156,12 +133,54 @@ export default function FeaturedProjects() {
                         {project.description}
                       </p>
                       <span className="mt-4 inline-flex items-center gap-1 text-xs font-mono uppercase tracking-widest text-muted group-hover:text-accent transition-colors">
-                        {project.category === "Dashboards" ? "View Dashboard" : "Visit Site"}
+                        {isDashboard ? "View in Gallery" : "Visit Site"}
                       </span>
                     </div>
-                  </motion.a>
-                </motion.div>
-              ))}
+                  </>
+                );
+
+                const cardClass =
+                  "relative z-10 block bg-surface border border-border rounded-3xl overflow-hidden hover:border-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg";
+
+                return (
+                  <motion.div
+                    key={project.title}
+                    custom={i}
+                    variants={item}
+                    className="group relative"
+                  >
+                    <div
+                      className={`absolute -inset-3 bg-gradient-to-br from-accent/15 via-surface to-accent-2/10 rounded-[2.5rem] border border-border ${project.rotate} transition-transform duration-300 group-hover:rotate-0`}
+                    />
+
+                    {isDashboard ? (
+                      // Deep-links into /projects with this card's slug, so
+                      // Projects.jsx can scroll to it and auto-open its
+                      // gallery — instead of just dropping the visitor on
+                      // the page and making them hunt for it.
+                      <motion.div
+                        whileHover={shouldReduceMotion ? {} : { y: -6 }}
+                        transition={{ duration: 0.25, ease: "easeOut" }}
+                      >
+                        <NavLink to={`/projects?open=${slugify(project.title)}`} className={cardClass}>
+                          {cardInner}
+                        </NavLink>
+                      </motion.div>
+                    ) : (
+                      <motion.a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        whileHover={shouldReduceMotion ? {} : { y: -6 }}
+                        transition={{ duration: 0.25, ease: "easeOut" }}
+                        className={cardClass}
+                      >
+                        {cardInner}
+                      </motion.a>
+                    )}
+                  </motion.div>
+                );
+              })}
             </motion.div>
           </div>
         ))}
