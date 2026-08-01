@@ -5,6 +5,7 @@ import { projects } from "../data/projects";
 import { skillCategories, techIcons } from "../data/skills";
 
 const categories = ["All", ...new Set(projects.map((p) => p.category))];
+const categoryOrder = categories.filter((c) => c !== "All");
 
 export default function Projects() {
   const shouldReduceMotion = useReducedMotion();
@@ -24,9 +25,23 @@ export default function Projects() {
     });
   }, [activeCategory, activeTech]);
 
+  // Group the filtered results by category so each section can carry its
+  // own title, in a stable order (Websites before Dashboards) regardless
+  // of which filters are active.
+  const groupedFiltered = useMemo(() => {
+    return categoryOrder
+      .map((cat) => ({ label: cat, items: filtered.filter((p) => p.category === cat) }))
+      .filter((group) => group.items.length > 0);
+  }, [filtered]);
+
   const headerFade = {
     hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 16 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
+  };
+
+  const groupTitle = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
   };
 
   const card = {
@@ -141,122 +156,138 @@ export default function Projects() {
         </div>
       </motion.div>
 
-      {/* Project grid */}
-      <motion.div layout className="grid md:grid-cols-2 gap-10">
-        <AnimatePresence mode="popLayout">
-          {filtered.map((project) => {
-            const isExpanded = expanded[project.title];
-            const hiddenTech = project.tech.filter(
-              (t) => !project.highlights.includes(t)
-            );
+      {/* Project groups */}
+      <div className="flex flex-col gap-16">
+        {groupedFiltered.map((group) => (
+          <div key={group.label}>
+            <motion.p
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.6 }}
+              variants={groupTitle}
+              className="font-heading text-lg font-semibold text-text mb-6"
+            >
+              {group.label}
+            </motion.p>
 
-            return (
-              <motion.div
-                key={project.title}
-                layout
-                variants={card}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="group relative"
-              >
-                <div
-                  className={`absolute -inset-3 bg-gradient-to-br from-accent/15 via-surface to-accent-2/10 rounded-[2.5rem] border border-border ${project.rotate} transition-transform duration-300 group-hover:rotate-0`}
-                />
+            <motion.div layout className="grid md:grid-cols-2 gap-10">
+              <AnimatePresence mode="popLayout">
+                {group.items.map((project) => {
+                  const isExpanded = expanded[project.title];
+                  const hiddenTech = project.tech.filter(
+                    (t) => !project.highlights.includes(t)
+                  );
 
-                <div className="relative z-10 bg-surface border border-border rounded-3xl overflow-hidden hover:border-accent transition-colors">
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
-                  >
-                    <div className="relative aspect-video overflow-hidden bg-bg">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  return (
+                    <motion.div
+                      key={project.title}
+                      layout
+                      variants={card}
+                      initial="hidden"
+                      animate="visible"
+                      exit="exit"
+                      className="group relative"
+                    >
+                      <div
+                        className={`absolute -inset-3 bg-gradient-to-br from-accent/15 via-surface to-accent-2/10 rounded-[2.5rem] border border-border ${project.rotate} transition-transform duration-300 group-hover:rotate-0`}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                      <span className="absolute top-4 left-4 text-[10px] font-mono uppercase tracking-widest px-3 py-1.5 rounded-full bg-bg/80 backdrop-blur border border-border text-muted group-hover:text-accent group-hover:border-accent transition-colors">
-                        {project.category}
-                      </span>
-                    </div>
 
-                    <div className="p-6 pb-4">
-                      <div className="flex items-start justify-between gap-3">
-                        <h3 className="font-heading text-xl font-semibold text-text">
-                          {project.title}
-                        </h3>
-                        <ArrowUpRight
-                          size={20}
-                          className="shrink-0 text-muted group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
-                        />
+                      <div className="relative z-10 bg-surface border border-border rounded-3xl overflow-hidden hover:border-accent transition-colors">
+                        <a
+                          href={project.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                        >
+                          <div className="relative aspect-video overflow-hidden bg-bg">
+                            <img
+                              src={project.image}
+                              alt={project.title}
+                              loading="lazy"
+                              decoding="async"
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+                            <span className="absolute top-4 left-4 text-[10px] font-mono uppercase tracking-widest px-3 py-1.5 rounded-full bg-bg/80 backdrop-blur border border-border text-muted group-hover:text-accent group-hover:border-accent transition-colors">
+                              {project.subCategory || project.category}
+                            </span>
+                          </div>
+
+                          <div className="p-6 pb-4">
+                            <div className="flex items-start justify-between gap-3">
+                              <h3 className="font-heading text-xl font-semibold text-text">
+                                {project.title}
+                              </h3>
+                              <ArrowUpRight
+                                size={20}
+                                className="shrink-0 text-muted group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
+                              />
+                            </div>
+                            <p className="mt-1 text-sm text-accent font-medium">
+                              {project.tagline}
+                            </p>
+                            <p className="mt-3 text-sm text-muted leading-relaxed">
+                              {project.description}
+                            </p>
+                          </div>
+                        </a>
+
+                        {/* Tech stack tags — highlights only, expandable */}
+                        <div className="px-6 pb-6 pt-2 border-t border-border/60 mt-2">
+                          <div className="flex flex-wrap gap-2">
+                            {project.highlights.map((tech) => {
+                              const Icon = techIcons[tech];
+                              return (
+                                <span key={tech} className={tagClass}>
+                                  {Icon && <Icon size={12} className="text-accent" />}
+                                  {tech}
+                                </span>
+                              );
+                            })}
+
+                            <AnimatePresence>
+                              {isExpanded &&
+                                hiddenTech.map((tech) => {
+                                  const Icon = techIcons[tech];
+                                  return (
+                                    <motion.span
+                                      key={tech}
+                                      initial={{ opacity: 0, scale: 0.9 }}
+                                      animate={{ opacity: 1, scale: 1 }}
+                                      exit={{ opacity: 0, scale: 0.9 }}
+                                      transition={{ duration: 0.15 }}
+                                      className={tagClass}
+                                    >
+                                      {Icon && <Icon size={12} className="text-accent" />}
+                                      {tech}
+                                    </motion.span>
+                                  );
+                                })}
+                            </AnimatePresence>
+                          </div>
+
+                          {hiddenTech.length > 0 && (
+                            <button
+                              onClick={() => toggleExpanded(project.title)}
+                              className="mt-3 inline-flex items-center gap-1 text-[11px] font-mono text-muted hover:text-accent transition-colors"
+                            >
+                              <ChevronDown
+                                size={12}
+                                className={`transition-transform ${isExpanded ? "rotate-180" : ""}`}
+                              />
+                              {isExpanded ? "Show less" : `+${hiddenTech.length} more`}
+                            </button>
+                          )}
+                        </div>
                       </div>
-                      <p className="mt-1 text-sm text-accent font-medium">
-                        {project.tagline}
-                      </p>
-                      <p className="mt-3 text-sm text-muted leading-relaxed">
-                        {project.description}
-                      </p>
-                    </div>
-                  </a>
-
-                  {/* Tech stack tags — highlights only, expandable */}
-                  <div className="px-6 pb-6 pt-2 border-t border-border/60 mt-2">
-                    <div className="flex flex-wrap gap-2">
-                      {project.highlights.map((tech) => {
-                        const Icon = techIcons[tech];
-                        return (
-                          <span key={tech} className={tagClass}>
-                            {Icon && <Icon size={12} className="text-accent" />}
-                            {tech}
-                          </span>
-                        );
-                      })}
-
-                      <AnimatePresence>
-                        {isExpanded &&
-                          hiddenTech.map((tech) => {
-                            const Icon = techIcons[tech];
-                            return (
-                              <motion.span
-                                key={tech}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                transition={{ duration: 0.15 }}
-                                className={tagClass}
-                              >
-                                {Icon && <Icon size={12} className="text-accent" />}
-                                {tech}
-                              </motion.span>
-                            );
-                          })}
-                      </AnimatePresence>
-                    </div>
-
-                    {hiddenTech.length > 0 && (
-                      <button
-                        onClick={() => toggleExpanded(project.title)}
-                        className="mt-3 inline-flex items-center gap-1 text-[11px] font-mono text-muted hover:text-accent transition-colors"
-                      >
-                        <ChevronDown
-                          size={12}
-                          className={`transition-transform ${isExpanded ? "rotate-180" : ""}`}
-                        />
-                        {isExpanded ? "Show less" : `+${hiddenTech.length} more`}
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
-      </motion.div>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            </motion.div>
+          </div>
+        ))}
+      </div>
 
       {/* Empty state */}
       {filtered.length === 0 && (
